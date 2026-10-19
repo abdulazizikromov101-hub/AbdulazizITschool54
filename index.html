@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CodeForge School of Programming</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+:root{--ink:#0e1325;--panel:rgba(21,28,54,.82);--amber:#ffb454;--lilac:#b9a4ff;--mint:#7fe3c4;--tx:#e8ecfa;--mut:#93a0c6;--line:rgba(185,164,255,.25);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3,.brand{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.1;margin:0}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 14px) 5vw 14px;background:linear-gradient(var(--ink),transparent)}
+.brand{font-size:1.25rem;font-weight:700;color:var(--amber);text-decoration:none}
+nav div a{color:var(--tx);text-decoration:none;margin-left:22px;font-size:.95rem}
+nav div a:hover,a:focus-visible,button:focus-visible{color:var(--amber);outline:2px solid var(--amber);outline-offset:3px}
+main{position:relative;z-index:2}
+#hero{height:100svh;min-height:560px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 9vh;touch-action:pan-y;cursor:grab}
+#hero h1{font-size:clamp(2.4rem,7vw,5.2rem);max-width:12ch;text-shadow:0 4px 30px var(--ink)}
+#hero p{max-width:46ch;color:var(--mut);margin:16px 0 24px;text-shadow:0 2px 12px var(--ink)}
+.btn{display:inline-block;padding:12px 22px;border-radius:6px;font-weight:600;text-decoration:none;margin-right:10px;border:1px solid var(--amber);color:var(--amber)}
+.btn.main{background:var(--amber);color:var(--ink)}
+section.sec{padding:12vh 5vw;max-width:1100px;margin:0 auto}
+.glass{background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:clamp(20px,4vw,40px)}
+h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:16px}
+.stats{display:flex;flex-wrap:wrap;gap:28px 48px;margin-top:26px}
+.stats b{display:block;font:700 2rem "Space Grotesk",sans-serif;color:var(--mint)}
+.stats span{color:var(--mut);font-size:.9rem}
+.tracks{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:24px;margin-top:20px}
+.tabs{display:flex;flex-direction:column;gap:6px}
+.tabs button{text-align:left;background:none;border:0;border-left:3px solid transparent;color:var(--mut);padding:10px 14px;font:500 1rem "Space Grotesk",sans-serif;cursor:pointer}
+.tabs button[aria-selected=true]{color:var(--tx);border-color:var(--amber);background:rgba(255,180,84,.08)}
+pre{margin:0;padding:18px;background:#0a0f20;border-radius:10px;overflow-x:auto;font:.9rem/1.7 ui-monospace,Consolas,monospace;color:var(--lilac)}
+pre i{color:var(--mint);font-style:normal}pre u{color:var(--amber);text-decoration:none}
+.rooms{list-style:none;padding:0;margin:20px 0 0}
+.rooms li{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.rooms b{font-family:"Space Grotesk",sans-serif;color:var(--amber)}
+.rooms span{color:var(--mut)}
+.way{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:20px}
+.way h3{color:var(--lilac);margin-bottom:6px;font-size:1.3rem}.way p{margin:0;color:var(--mut)}
+footer{position:relative;z-index:2;padding:28px 5vw;text-align:center;color:var(--mut);font-size:.9rem;background:var(--ink)}
+@media(max-width:700px){.tracks,.way{grid-template-columns:1fr}.tabs{flex-direction:row;flex-wrap:wrap}.rooms li{grid-template-columns:1fr;gap:2px}nav div a:not(:last-child){display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head>
+<body>
+<canvas id="c" aria-label="Interactive 3D model of the CodeForge school building"></canvas>
+<nav><a class="brand" href="#hero">&lt;CodeForge/&gt;</a><div><a href="#about">About</a><a href="#programs">Programs</a><a href="#campus">Campus</a><a href="#join">Join us</a></div></nav>
+<main>
+<header id="hero">
+<h1>Where programmers are built.</h1>
+<p>Welcome to CodeForge, a school for future developers. Drag to look around our 3D campus, or scroll to fly around the building.</p>
+<div><a class="btn main" href="#programs">See programs</a><a class="btn" href="#join">Apply now</a></div>
+</header>
+
+<section class="sec" id="about"><div class="glass">
+<h2>A school that ships real code</h2>
+<p>CodeForge is a project-based school for students aged 14 and older. Since 2020 we have taught programming by building real apps from the first week, guided by working software engineers. Every student graduates with a public portfolio on GitHub.</p>
+<div class="stats"><div><b>1,200+</b><span>graduates</span></div><div><b>25</b><span>engineer-mentors</span></div><div><b>92%</b><span>hired or admitted within 6 months</span></div><div><b>4</b><span>learning tracks</span></div></div>
+</div>
+<div class="glass" style="margin-top:24px"><h2>How we teach</h2>
+<div class="way"><div><h3>Learn</h3><p>Short, practical lessons. Every concept is used in code the same day.</p></div><div><h3>Build</h3><p>Each month ends with a team project that solves a real problem.</p></div><div><h3>Ship</h3><p>You deploy your work online and get reviews from mentors.</p></div></div></div>
+</section>
+
+<section class="sec" id="programs"><div class="glass">
+<h2>Choose your track</h2>
+<div class="tracks"><div class="tabs" role="tablist" id="tabs"></div><div><p id="tdesc" style="margin-top:0"></p><pre id="tcode"></pre></div></div>
+</div></section>
+
+<section class="sec" id="campus"><div class="glass">
+<h2>Inside the campus</h2>
+<p>Every room in our building is designed for developers.</p>
+<ul class="rooms">
+<li><b>Code Labs</b><span>60 powerful PCs with dual monitors, fast fiber internet, and standing desks.</span></li>
+<li><b>Hackathon Hall</b><span>An open hall for our monthly 24-hour coding contests and demo days.</span></li>
+<li><b>Server Room</b><span>Real server racks where students learn deployment, networking, and DevOps.</span></li>
+<li><b>Library and Café</b><span>Technical books, quiet corners, and coffee for long debugging sessions.</span></li>
+<li><b>Rooftop Beacon</b><span>The glowing ring on our tower marks the school and our open-source club.</span></li>
+</ul></div></section>
+
+<section class="sec" id="join"><div class="glass">
+<h2>Join the next cohort</h2>
+<p>New groups start every September and February. No experience is needed: a short logic test and a friendly interview are all we ask.</p>
+<p style="margin-bottom:24px"><b>Address:</b> School No. 54, Mirzo Ulugbek District, Tashkent<br><b>Email:</b> abdulaziz1@gmail.com<br><b>Phone:</b> +998 99 039 48 85</p>
+<a class="btn main" href="mailto:abdulaziz1@gmail.com">Email admissions</a>
+</div></section>
+</main>
+<footer>© 2026 CodeForge School of Programming. A student project.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ---- Program tabs ----
+const T=[
+["Web Development","9 months. Build websites and web apps with HTML, CSS, JavaScript, and React.",'<u>const</u> page = <i>"Hello, web!"</i>;\ndocument.title = page;'],
+["Python and AI","8 months. Learn Python, data analysis, and how machine learning models work.",'<u>def</u> learn(skill):\n    <u>return</u> skill.practice()\nlearn(<i>"Python"</i>)'],
+["Game Development","10 months. Make 2D and 3D games with Godot, Unity, and C#.",'<u>void</u> Update() {\n  player.Move(<i>input</i>);\n}'],
+["Cybersecurity","8 months. Understand networks, Linux, and ethical hacking to protect systems.",'$ nmap -sV <i>school.local</i>\n$ ssh student@<i>lab-01</i>']];
+const tabs=document.getElementById("tabs");
+T.forEach((t,i)=>{const b=document.createElement("button");b.textContent=t[0];b.setAttribute("role","tab");b.onclick=()=>pick(i);tabs.appendChild(b)});
+function pick(i){[...tabs.children].forEach((b,j)=>b.setAttribute("aria-selected",i===j));document.getElementById("tdesc").textContent=T[i][1];document.getElementById("tcode").innerHTML=T[i][2]}
+pick(0);
+
+// ---- 3D school ----
+const cv=document.getElementById("c"),R=new THREE.WebGLRenderer({canvas:cv,antialias:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.15;
+const S=new THREE.Scene();S.fog=new THREE.Fog(0x2b2358,45,130);
+const cam=new THREE.PerspectiveCamera(48,1,.1,400);
+S.add(new THREE.HemisphereLight(0x9aa6ff,0x1a1030,.9));
+const sun=new THREE.DirectionalLight(0xc9b8ff,1.1);sun.position.set(-25,35,25);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+const sc=sun.shadow.camera;sc.left=-38;sc.right=38;sc.top=38;sc.bottom=-38;sc.far=130;S.add(sun);
+const warm=new THREE.PointLight(0xffb454,1.6,30);warm.position.set(0,3.5,6);S.add(warm);
+const cyan=new THREE.PointLight(0x7fe3c4,1.2,40);cyan.position.set(0,16,-3);S.add(cyan);
+
+// sky, moon, stars
+(()=>{const c=document.createElement("canvas");c.width=4;c.height=256;const x=c.getContext("2d"),g=x.createLinearGradient(0,0,0,256);
+[[0,"#070b1e"],[.33,"#1d2155"],[.46,"#5a3a78"],[.5,"#e08a5a"],[.54,"#2a1e4a"],[1,"#0b0e24"]].forEach(a=>g.addColorStop(a[0],a[1]));x.fillStyle=g;x.fillRect(0,0,4,256);
+S.add(new THREE.Mesh(new THREE.SphereGeometry(200,24,24),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),side:THREE.BackSide,fog:false})));
+const m=new THREE.Mesh(new THREE.SphereGeometry(7,24,24),new THREE.MeshBasicMaterial({color:0xfff1d6,fog:false}));m.position.set(-75,60,-120);S.add(m);
+const st=[];for(let i=0;i<500;i++){const a=Math.random()*6.28,b=Math.random()*1.2+.12,r=185;st.push(Math.cos(a)*Math.cos(b)*r,Math.sin(b)*r,Math.sin(a)*Math.cos(b)*r)}
+const sg=new THREE.BufferGeometry();sg.setAttribute("position",new THREE.Float32BufferAttribute(st,3));
+S.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xe8ecfa,size:1.1,fog:false})))})();
+
+// materials and helpers
+function facade(rx,ry){const c=document.createElement("canvas");c.width=c.height=256;const x=c.getContext("2d");x.fillStyle="#141a40";x.fillRect(0,0,256,256);
+const L=["#ffc46b","#8ff0d0","#c4b2ff","#6fb7ff"];
+for(let i=0;i<4;i++)for(let j=0;j<4;j++){x.fillStyle=Math.random()>.25?L[Math.random()*4|0]:"#222a58";x.fillRect(i*64+5,j*64+8,54,46);x.fillStyle="#141a40";x.fillRect(i*64+31,j*64+8,2,46)}
+x.fillStyle="#ffb454";for(let j=0;j<4;j++)x.fillRect(0,j*64+60,256,2);
+const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx,ry);t.anisotropy=4;return t}
+const gm=(rx,ry)=>{const t=facade(rx,ry);return new THREE.MeshStandardMaterial({map:t,emissiveMap:t,emissive:0xffffff,emissiveIntensity:.85,roughness:.35,metalness:.3})};
+const concrete=new THREE.MeshStandardMaterial({color:0x2a3366,roughness:.8}),amber=new THREE.MeshBasicMaterial({color:0xffb454}),amberLine=new THREE.LineBasicMaterial({color:0xffb454});
+function box(w,h,d,x,y,z,m,edge){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;S.add(o);
+if(edge){const e=new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry),amberLine);e.position.copy(o.position);S.add(e)}return o}
+function cyl(r,h,x,y,z,m){const o=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,14),m);o.position.set(x,y,z);o.castShadow=true;S.add(o);return o}
+function tex(lines,w,h,font){const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");
+x.fillStyle="rgba(10,15,32,.92)";x.fillRect(0,0,w,h);x.strokeStyle="#ffb454";x.lineWidth=4;x.strokeRect(2,2,w-4,h-4);x.font=font;x.textBaseline="middle";
+lines.forEach((l,i)=>{x.fillStyle=l[1];x.fillText(l[0],l[2]||24,l[3]||(h/(lines.length+1))*(i+1))});return new THREE.CanvasTexture(c)}
+function emblem(col){const c=document.createElement("canvas");c.width=512;c.height=256;const x=c.getContext("2d");x.font="bold 190px monospace";x.textAlign="center";x.textBaseline="middle";x.shadowColor=col;x.shadowBlur=30;x.fillStyle=col;x.fillText("</>",256,135);
+return new THREE.Mesh(new THREE.PlaneGeometry(6,3),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false,side:THREE.DoubleSide}))}
+
+// ground
+const ground=new THREE.Mesh(new THREE.CircleGeometry(190,48),new THREE.MeshStandardMaterial({color:0x0e1433,roughness:.5,metalness:.2}));ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;S.add(ground);
+const grid=new THREE.GridHelper(160,80,0x2b3766,0x1a2347);grid.position.y=.02;S.add(grid);
+
+// main hall, roof slab, floor band, tower with crown
+box(16,8,7,0,4,0,gm(4,2),1);box(16.8,.5,7.8,0,8.25,0,concrete,1);box(16.3,.3,7.3,0,4.1,0,concrete);
+box(4,16,4,0,8,-7,gm(1,4),1);box(4.8,.6,4.8,0,16.3,-7,concrete,1);box(3,1.2,3,0,17.2,-7,gm(1,1));
+cyl(.09,5,0,20.3,-7,concrete);
+const ring=new THREE.Mesh(new THREE.TorusGeometry(2.6,.09,12,64),new THREE.MeshBasicMaterial({color:0x7fe3c4}));ring.position.set(0,19.5,-7);S.add(ring);
+const beacon=new THREE.Mesh(new THREE.SphereGeometry(.4,16,16),new THREE.MeshBasicMaterial({color:0xff6a5a}));beacon.position.set(0,23,-7);S.add(beacon);
+const te=emblem("#ffb454");te.scale.setScalar(.6);te.position.set(0,12,-4.97);S.add(te);
+
+// wings and skybridges
+[-14,14].forEach(x=>{box(7,5.5,6,x,2.75,1,gm(2,1.5),1);box(7.6,.5,6.6,x,5.75,1,concrete,1)});
+[-9.25,9.25].forEach(x=>box(2.5,1.8,2,x,4.2,1,gm(1,1)));
+const dish=new THREE.Mesh(new THREE.SphereGeometry(1.3,16,8,0,6.28,0,1.1),new THREE.MeshStandardMaterial({color:0xdfe6ff,side:THREE.DoubleSide,metalness:.6,roughness:.3}));dish.position.set(-14,7.2,1);dish.rotation.set(-.9,.5,0);S.add(dish);cyl(.1,1.4,-14,6.5,1,concrete);
+[-1,0,1].forEach(i=>{const p=box(1.8,.08,1.3,14+i*2.1,6.3,1,new THREE.MeshStandardMaterial({color:0x2b57c8,metalness:.8,roughness:.25}));p.rotation.x=-.5});
+
+// entrance: canopy, columns, steps, door, sign
+box(10,.35,4,0,5.3,5,concrete,1);
+[-4.5,-1.5,1.5,4.5].forEach(x=>cyl(.22,5.2,x,2.6,6.7,concrete));
+box(11,.3,1.6,0,.15,7.9,concrete);box(10,.3,1,0,.45,7.4,concrete);
+const door=new THREE.Mesh(new THREE.PlaneGeometry(2.4,3.4),amber);door.position.set(0,1.7,3.52);S.add(door);
+const sign=new THREE.Mesh(new THREE.PlaneGeometry(11,1.5),new THREE.MeshBasicMaterial({map:tex([["<CodeForge/> School",'#ffb454',60,64]],768,104,"bold 52px monospace")}));sign.position.set(0,6.8,3.53);S.add(sign);
+
+// plaza with hologram, lamps, trees
+cyl(9,.15,0,.08,19,concrete);
+[[9,0xffb454],[5,0x7fe3c4]].forEach(a=>{const r=new THREE.Mesh(new THREE.TorusGeometry(a[0],.07,8,64),new THREE.MeshBasicMaterial({color:a[1]}));r.rotation.x=Math.PI/2;r.position.set(0,.2,19);S.add(r)});
+cyl(1.2,.9,0,.5,19,concrete);
+const holo=emblem("#7fe3c4");holo.position.set(0,4,19);S.add(holo);
+for(let i=0;i<6;i++){const a=i*1.047,x=Math.sin(a)*10,z=19+Math.cos(a)*10;cyl(.07,4,x,2,z,concrete);const l=new THREE.Mesh(new THREE.SphereGeometry(.28,12,12),amber);l.position.set(x,4.1,z);S.add(l)}
+const tm=new THREE.MeshStandardMaterial({color:0x4a3a52}),lm=[0x2fb58f,0x8f7cff].map(c=>new THREE.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:.18,roughness:.8}));
+[[-8,9],[8,9],[-14,14],[14,14],[-17,22],[17,22],[-22,6],[22,6],[-20,-6],[20,-6],[-12,-14],[12,-14],[-26,16],[26,16]].forEach(([x,z],i)=>{
+cyl(.22,2,x,1,z,tm);const f=new THREE.Mesh(new THREE.IcosahedronGeometry(1.5+(i%3)*.25,1),lm[i%3===0?1:0]);f.position.set(x,3.2,z);f.castShadow=true;S.add(f)});
+
+// rising data particles around the tower
+const N=150,pp=new Float32Array(N*3),sp=[];
+for(let i=0;i<N;i++){pp[i*3]=(Math.random()-.5)*5;pp[i*3+1]=Math.random()*20;pp[i*3+2]=-7+(Math.random()-.5)*5;sp.push(.02+Math.random()*.05)}
+const pg=new THREE.BufferGeometry();pg.setAttribute("position",new THREE.BufferAttribute(pp,3));
+S.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0x7fe3c4,size:.22})));
+
+// floating code panels
+const P=[[[["const school = {",'#b9a4ff'],['  name: "CodeForge",','#7fe3c4'],['  learn: "build",','#ffb454'],["};",'#b9a4ff']],-21,10,12],
+[[["def learn(skill):",'#b9a4ff'],["  return skill.build()",'#7fe3c4'],[">>> learn('Python')",'#ffb454']],21,11,10],
+[[["<h1>Hello, World!</h1>",'#ff8fa3'],['git commit -m "first"','#7fe3c4']],9,20,-10]].map(([l,x,y,z])=>{
+const m=new THREE.Mesh(new THREE.PlaneGeometry(6,3.4),new THREE.MeshBasicMaterial({map:tex(l,512,290,"bold 26px monospace"),side:THREE.DoubleSide}));m.position.set(x,y,z);S.add(m);return m});
+
+// ---- camera: scroll flies around, drag looks around ----
+let drag=0,tdrag=0,down=false,lx=0,prog=0;
+const hero=document.getElementById("hero");
+hero.addEventListener("pointerdown",e=>{down=true;lx=e.clientX;hero.style.cursor="grabbing"});
+addEventListener("pointerup",()=>{down=false;hero.style.cursor="grab"});
+addEventListener("pointermove",e=>{if(down){tdrag+=(e.clientX-lx)*.008;lx=e.clientX}});
+function size(){R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()}
+addEventListener("resize",size);size();
+const calm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+function loop(t){
+const max=document.documentElement.scrollHeight-innerHeight;prog=max>0?scrollY/max:0;
+drag+=(tdrag-drag)*.08;
+const a=-.5+prog*Math.PI*1.7+drag+(calm?0:t*.00004);
+const wide=cam.aspect<1?1.75:1,r=(40-prog*9)*wide,h=9+Math.sin(prog*Math.PI)*10;
+cam.position.set(Math.sin(a)*r,h,Math.cos(a)*r);cam.lookAt(0,7,2);
+ring.rotation.x=t*.0008;ring.rotation.y=t*.0005;beacon.scale.setScalar(1+Math.sin(t*.005)*.35);holo.rotation.y=t*.0007;
+for(let i=0;i<N;i++){pp[i*3+1]+=sp[i];if(pp[i*3+1]>21)pp[i*3+1]=0}pg.attributes.position.needsUpdate=true;
+P.forEach((p,i)=>{p.position.y+=Math.sin(t*.001+i)*.004;p.lookAt(cam.position.x,p.position.y,cam.position.z)});
+R.render(S,cam);requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+</script>
+</body></html>
